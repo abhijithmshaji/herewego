@@ -1,0 +1,66 @@
+<div class="container-fluid">
+  <div class="row mt-5">
+    <div class="col"></div>
+    <div class="col-4">
+      <div class="card shadow">
+        <div class="card-body">
+          <form>
+            <div class="mb-3">
+              <h4 class="text-dark text-muted text-center">Login</h4>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                name="email"
+                [(ngModel)]="email"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"
+                >Password</label
+              >
+              <input
+                type="password"
+                class="form-control"
+                name="password"
+                [(ngModel)]="password"
+              />
+            </div>
+            <button type="submit" class="btn btn-info" (click)="login()">
+              Login
+            </button>
+            <div class="row mt-5">
+              <div class="col-md-6">
+                <a [routerLink]="['/register']" style="text-decoration: none"
+                  >Create an account
+                  <span class="text-danger">Register</span></a
+                >
+              </div>
+              <div class="col-md-6">
+                <a
+                  [routerLink]="['/forgot-password']"
+                  style="text-decoration: none"
+                  >Forgot paasword</a
+                >
+              </div>
+            </div>
+              <a
+                (click)="signInWithGoogle()"
+                style="text-decoration: none; cursor: pointer"
+              >
+                <img
+                  src="../../../assets/yczPzHD.png"
+                  alt=""
+                  height="50%"
+                  width="100%"
+                />
+              </a>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>

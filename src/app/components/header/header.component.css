@@ -1,0 +1,17 @@
+/* Optionally add margin or padding for spacing */
+.btn-group {
+    margin-left: 15px;
+  }
+  
+  /* Style for the profile image */
+  .btn-group img {
+    border-radius: 50%; /* Keeps the profile image circular */
+    width: 30px;
+    height: 30px;
+  }
+  
+  /* Style for the dropdown menu */
+  .dropdown-menu {
+    right: 0;
+    left: auto;
+  }

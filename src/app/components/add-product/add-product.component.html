@@ -1,0 +1,242 @@
+<div
+  class="container d-flex justify-content-center align-items-center"
+  style="min-height: 100vh"
+>
+  <div class="col-md-6 col-lg-4 shadow-lg p-4 rounded bg-white">
+    <h2 class="text-center mb-4">Add Product</h2>
+    <form
+      [formGroup]="addProductForm"
+      (ngSubmit)="onSubmit()"
+      class="form-grid"
+    >
+      <!-- Row for two-column layout -->
+      <div class="row">
+        <!-- Name Field -->
+        <div class="form-group col-md-6">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            formControlName="name"
+            class="form-control"
+          />
+          <div
+            *ngIf="
+              addProductForm.get('name')?.touched &&
+              addProductForm.get('name')?.invalid
+            "
+          >
+            <span
+              *ngIf="addProductForm.get('name')?.hasError('required')"
+              class="text-danger"
+            >
+              Name is required
+            </span>
+          </div>
+        </div>
+
+        <!-- Fuel Field -->
+        <div class="form-group col-md-6">
+          <label for="fuel">Fuel</label>
+          <input
+            type="text"
+            id="fuel"
+            formControlName="fuel"
+            class="form-control"
+          />
+          <div
+            *ngIf="
+              addProductForm.get('fuel')?.touched &&
+              addProductForm.get('fuel')?.invalid
+            "
+          >
+            <span
+              *ngIf="addProductForm.get('fuel')?.hasError('required')"
+              class="text-danger"
+            >
+              Fuel is required
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row for two-column layout -->
+      <div class="row">
+        <!-- Model Field -->
+        <div class="form-group col-md-6">
+          <label for="model">Model</label>
+          <input
+            type="text"
+            id="model"
+            formControlName="model"
+            class="form-control"
+          />
+          <div
+            *ngIf="
+              addProductForm.get('model')?.touched &&
+              addProductForm.get('model')?.invalid
+            "
+          >
+            <span
+              *ngIf="addProductForm.get('model')?.hasError('required')"
+              class="text-danger"
+            >
+              Model is required
+            </span>
+          </div>
+        </div>
+
+        <!-- Price Field -->
+        <div class="form-group col-md-6">
+          <label for="price">Price</label>
+          <input
+            type="number"
+            id="price"
+            formControlName="price"
+            class="form-control"
+          />
+          <div
+            *ngIf="
+              addProductForm.get('price')?.touched &&
+              addProductForm.get('price')?.invalid
+            "
+          >
+            <span
+              *ngIf="addProductForm.get('price')?.hasError('required')"
+              class="text-danger"
+            >
+              Price is required
+            </span>
+            <span
+              *ngIf="addProductForm.get('price')?.hasError('min')"
+              class="text-danger"
+            >
+              Price cannot be negative
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row for two-column layout -->
+      <div class="row">
+        <!-- Seats Field -->
+        <div class="form-group col-md-6">
+          <label for="seats">Seats</label>
+          <input
+            type="number"
+            id="seats"
+            formControlName="seats"
+            class="form-control"
+          />
+          <div
+            *ngIf="
+              addProductForm.get('seats')?.touched &&
+              addProductForm.get('seats')?.invalid
+            "
+          >
+            <span
+              *ngIf="addProductForm.get('seats')?.hasError('required')"
+              class="text-danger"
+            >
+              Seats are required
+            </span>
+            <span
+              *ngIf="addProductForm.get('seats')?.hasError('min')"
+              class="text-danger"
+            >
+              At least 1 seat required
+            </span>
+          </div>
+        </div>
+
+        <!-- Transmission Field -->
+        <div class="form-group col-md-6">
+          <label for="transmission">Transmission</label>
+          <input
+            type="text"
+            id="transmission"
+            formControlName="transmission"
+            class="form-control"
+          />
+          <div
+            *ngIf="
+              addProductForm.get('transmission')?.touched &&
+              addProductForm.get('transmission')?.invalid
+            "
+          >
+            <span
+              *ngIf="addProductForm.get('transmission')?.hasError('required')"
+              class="text-danger"
+            >
+              Transmission is required
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row for description field -->
+      <div class="form-group col-md-12">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          class="form-control"
+          rows="3"
+          placeholder="Enter product description"
+        ></textarea>
+        <div
+          *ngIf="
+            addProductForm.get('description')?.touched &&
+            addProductForm.get('description')?.invalid
+          "
+        >
+          <span
+            *ngIf="addProductForm.get('description')?.hasError('required')"
+            class="text-danger"
+          >
+            Description is required
+          </span>
+        </div>
+      </div>
+
+      <!-- Row for single column layout -->
+      <div class="row">
+        <!-- Image Field -->
+        <div class="form-group col-md-12">
+          <label for="image">Image</label>
+          <input
+            type="file"
+            id="image"
+            formControlName="image"
+            (change)="onFileSelected($event)"
+            class="form-control"
+          />
+          <div
+            *ngIf="
+              addProductForm.get('image')?.touched &&
+              addProductForm.get('image')?.invalid
+            "
+          >
+            <span
+              *ngIf="addProductForm.get('image')?.hasError('required')"
+              class="text-danger"
+            >
+              Image is required
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="form-group text-center">
+        <button
+          type="submit"
+          [disabled]="addProductForm.invalid"
+          class="btn btn-primary"
+        >
+          Add Product
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
