@@ -8,6 +8,8 @@ import { BookingComponent } from './components/booking/booking.component';
 
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
+import { authGuard } from './guard/auth/auth.guard';
+import { roleGuard } from './guard/role/role.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -16,11 +18,13 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [authGuard],
   },
   { path: 'register', component: RegisterComponent },
   { path: 'varify-email', component: VarifyEmailComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'booking', component: BookingComponent },
-  { path: 'add', component: AddProductComponent },
+  { path: 'add', component: AddProductComponent,
+    canActivate: [roleGuard]
+   },
 ];

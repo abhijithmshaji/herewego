@@ -18,10 +18,16 @@
   font-size: 2rem;
   font-weight: bold;
   color: #ffffff;
-  background-color: rgba(0, 0, 0, 0.6);
+  /* background-color: rgba(0, 0, 0, 0.6); */
   padding: 8px 16px;
   border-radius: 10px;
   z-index: 10;
+  h1{
+    background-color:#D19C97 ;
+  }
+  span{
+    background-color: rgba(0, 0, 0, 1);
+  }
 }
 
 /* Center overlay content */
