@@ -7,14 +7,14 @@ export const roleGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  const expectedRole = route.data?.['role'];
+  const expectedRole = 'admin';
 
   return from(authService.getUserRole()).pipe(
     map((role) => {
       if (role === expectedRole) {
         return true;
       } else {
-        return router.createUrlTree(['/unauthorized']);
+        return router.createUrlTree(['/home']);
       }
     })
   );

@@ -3,7 +3,7 @@
   style="min-height: 100vh"
 >
   <div class="col-md-6 col-lg-4 shadow-lg p-4 rounded bg-white">
-    <h2 class="text-center mb-4">Add Product</h2>
+    <h2>{{ isEditMode ? 'Edit Product' : 'Add Product' }}</h2>
     <form
       [formGroup]="addProductForm"
       (ngSubmit)="onSubmit()"
@@ -207,7 +207,6 @@
           <input
             type="file"
             id="image"
-            formControlName="image"
             (change)="onFileSelected($event)"
             class="form-control"
           />
@@ -234,7 +233,7 @@
           [disabled]="addProductForm.invalid"
           class="btn btn-primary"
         >
-          Add Product
+        {{ isEditMode ? 'Update' : 'Add Product' }}
         </button>
       </div>
     </form>

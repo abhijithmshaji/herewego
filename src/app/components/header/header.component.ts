@@ -28,5 +28,8 @@ export class HeaderComponent implements OnInit{
     this.userName=this.userDetails().multiFactor.user.displayName;    
   }
  
+  public signOut(){
+    this.authService.signOut()
+  }
 
 }

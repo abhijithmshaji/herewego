@@ -34,21 +34,10 @@
       <a href="" class="btn border">
         <fa-icon [icon]="faCart"></fa-icon>
       </a>
-      <a href="" class="btn border">
-        <span class="mr-2">SignOut</span>
+      <a class="btn border">
+        <span class="mr-2" (click)="signOut()">SignOut</span>
         <fa-icon [icon]="faLogOut"></fa-icon>
       </a>
-      <!-- <div class="btn-group">
-        <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="path_to_profile_image" alt="Profile" class="rounded-circle" width="30" height="30">
-          <span class="ml-2">{{userName}}</span>
-        </button>
-        <div class="dropdown-menu dropdown-menu-right">
-          <a class="dropdown-item" href="#">Profile</a>
-          <a class="dropdown-item" href="#">Settings</a>
-          <a class="dropdown-item" href="#">Logout</a>
-        </div>
-      </div> -->
     </div>
   </div>
 </div>

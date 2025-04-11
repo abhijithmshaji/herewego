@@ -5,6 +5,7 @@
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+ /* @import 'ngx-toastr/toastr.css'; */
  :root {
     --blue: #007bff;
     --indigo: #6610f2;
@@ -9581,5 +9582,8 @@
     100% {
       transform: translateY(-15px);
     }
+  }
+  .toast-container {
+    z-index: 9999 !important;
   }
   

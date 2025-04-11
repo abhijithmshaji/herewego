@@ -15,9 +15,7 @@ export class ProductService {
   ) {}
 
   //Add product
-  public addProduct(product: Product, imageUrl:string|null) {
-    console.log(imageUrl);
-    
+  public addProduct(product: Product, imageUrl: string | null) {
     const id = this.afs.createId();
     return this.afs.doc(`Products/${id}`).set({
       ...product,
@@ -26,19 +24,10 @@ export class ProductService {
     });
   }
 
-  // public uploadImage(file: File) {
-  //   const filePath = `uploads/${file.name}`;
-  //   const fileRef = this.storage.ref(filePath);
-  //   const task = this.storage.upload(filePath, file);
-  //    task.snapshotChanges().pipe(
-  //     finalize(() => {
-  //       fileRef.getDownloadURL().subscribe((url) => {
-  //         this.uploadedFileURL = url;
-  //       });
-  //     }),
-  //     // switchMap(() => fileRef.getDownloadURL())
-  //   ).subscribe()
-  // }
+  public getProductById(id: string): Observable<any> {
+    return this.afs.collection('Products').doc(id).valueChanges();
+  }
+
   //Get all products
   public getAllProducts() {
     return this.afs.collection('Products').snapshotChanges();
@@ -51,9 +40,15 @@ export class ProductService {
   }
 
   //Update product
-  public updateProduct(product: Product) {
-    this.deleteProduct(product);
-    // this.addProduct(product);
+  updateProduct(
+    id: string,
+    product: Product,
+    imageBase64: string | null
+  ): Promise<void> {    
+    return this.afs
+      .collection('Products')
+      .doc(id)
+      .update({ ...product, imageUrl: imageBase64 || product.imageUrl });
   }
 
   public addReservation(reservation: Reservation) {

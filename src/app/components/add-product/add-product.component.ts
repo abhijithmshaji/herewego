@@ -8,7 +8,8 @@ import {
 } from '@angular/forms';
 import { Product } from '../../models/product';
 import { ProductService } from '../../shared/product-servive/product.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-product',
@@ -20,12 +21,16 @@ import { Router } from '@angular/router';
 export class AddProductComponent implements OnInit {
   public addProductForm!: FormGroup;
   public base64Image: string | null = null; // Store the Base64 image string
-  public isAdmin!:any
+  public isAdmin!: any;
+  public isEditMode = false;
+  public productId: string | null = null;
 
   constructor(
     private fb: FormBuilder,
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private toastr: ToastrService
   ) {
     this.addProductForm = this.fb.group({
       fuel: ['', Validators.required],
@@ -34,13 +39,32 @@ export class AddProductComponent implements OnInit {
       price: [null, [Validators.required, Validators.min(0)]],
       seats: [null, [Validators.required, Validators.min(1)]],
       transmission: ['', Validators.required],
+      description: ['', Validators.required],
       image: ['', Validators.required], // Image field in the form group
     });
   }
 
   ngOnInit(): void {
     const role = localStorage.getItem('userRole');
-  this.isAdmin = role === 'admin';
+    this.isAdmin = role === 'admin';
+    this.route.paramMap.subscribe((params) => {
+      this.productId = params.get('id');
+
+      this.isEditMode = !!this.productId;
+
+      if (this.isEditMode && this.productId) {
+        this.loadProductData(this.productId);
+      }
+    });
+  }
+
+  private loadProductData(productId: string): void {
+    this.productService.getProductById(productId).subscribe((product) => {
+      if (product) {
+        this.addProductForm.patchValue(product);
+        this.base64Image = product.image || null;
+      }
+    });
   }
 
   public async onFileSelected(event: any): Promise<void> {
@@ -89,16 +113,29 @@ export class AddProductComponent implements OnInit {
   public onSubmit(): void {
     if (this.addProductForm.valid) {
       const product: Product = this.addProductForm.value;
-      this.productService
-        .addProduct(product, this.base64Image)
-        .then(() => {
-          console.log('Product added successfully!');
-          this.router.navigate(['/dashboard']);
-          this.addProductForm.reset();
-        })
-        .catch((error) => {
-          console.error('Error adding product: ', error);
-        });
+
+      if (this.isEditMode && this.productId) {
+        this.productService
+          .updateProduct(this.productId, product, this.base64Image)
+          .then(() => {
+            this.toastr.success('Product updated successfully!')
+            this.router.navigate(['/dashboard']);
+          })
+          .catch((error) => {
+            console.error('Error updating product:', error);
+          });
+      } else {
+        this.productService
+          .addProduct(product, this.base64Image)
+          .then(() => {
+            this.toastr.success('Product added successfully!')
+            this.router.navigate(['/dashboard']);
+            this.addProductForm.reset();
+          })
+          .catch((error) => {
+            console.error('Error adding product:', error);
+          });
+      }
     } else {
       console.log('Form is invalid');
     }

@@ -24,7 +24,16 @@ export const routes: Routes = [
   { path: 'varify-email', component: VarifyEmailComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'booking', component: BookingComponent },
-  { path: 'add', component: AddProductComponent,
-    canActivate: [roleGuard]
-   },
+  {
+    path: 'add-product',
+    loadComponent: () => import('./components/add-product/add-product.component').then(m => m.AddProductComponent),
+    canActivate: [authGuard, roleGuard],
+    data: { role: 'admin' }
+  },
+  {
+    path: 'edit-product/:id',
+    loadComponent: () => import('./components/add-product/add-product.component').then(m => m.AddProductComponent),
+    canActivate: [authGuard, roleGuard],
+    data: { role: 'admin' }
+  }
 ];

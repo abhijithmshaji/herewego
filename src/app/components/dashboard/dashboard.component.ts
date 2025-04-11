@@ -3,7 +3,7 @@ import { AuthService } from '../../shared/auth-service/auth.service';
 import { Product } from '../../models/product';
 import { ProductService } from '../../shared/product-servive/product.service';
 import { HeaderComponent } from '../header/header.component';
-import { faHeart, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FooterComponent } from '../footer/footer.component';
 import { Router } from '@angular/router';
@@ -36,6 +36,7 @@ export class DashboardComponent implements OnInit {
   image!: File;
   public faHeart = faHeart;
   public faDelete = faTrash;
+  public faEdit = faPen;
   public isModalVisible = false;
   public isAdmin!: any;
 
@@ -64,7 +65,6 @@ export class DashboardComponent implements OnInit {
             ...product,
           };
         });
-        console.log(this.productList);
       },
     });
   }
@@ -74,7 +74,7 @@ export class DashboardComponent implements OnInit {
   }
 
   public addProduct() {
-    this.router.navigate(['/add']);
+    this.router.navigate(['/add-product']);
   }
 
   public deleteProduct(product: Product) {
@@ -86,5 +86,9 @@ export class DashboardComponent implements OnInit {
       .catch((error) => {
         console.error('Error deleting document: ', error);
       });
+  }
+
+  public editPoduct(product:Product){
+    this.router.navigate(['/edit-product',product.id]);
   }
 }

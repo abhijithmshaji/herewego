@@ -8,7 +8,7 @@
   
   <div class="row">
     <ng-container *ngFor="let item of productList;">
-      <div class="col-md-4 d-flex justify-content-center mb-4">
+      <div class="col-md-3 d-flex justify-content-center mb-4">
         <div class="card custom-card" style="width: 18rem; height: 300px;">
           <div class="card-img-container">
             <img
@@ -27,12 +27,17 @@
               >
                 Click here for booking
               </a>
-              <span>
-                <fa-icon [icon]="faHeart" class="text-danger mt-3"></fa-icon>
+              
+              @if(isAdmin){<span (click)="editPoduct(item)">
+                <fa-icon [icon]="faEdit" class="mt-3"></fa-icon>
               </span>
-              <span *ngIf="isAdmin" (click)="deleteProduct(item)">
+              <span (click)="deleteProduct(item)">
                 <fa-icon [icon]="faDelete" class="mt-3"></fa-icon>
-              </span>
+              </span>}@else {
+                <span>
+                  <fa-icon [icon]="faHeart" class="text-danger mt-3"></fa-icon>
+                </span>
+              }
             </div>
           </div>
         </div>
